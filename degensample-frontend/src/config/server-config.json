@@ -1,0 +1,13 @@
+{
+    "development":{
+        "backendServerUrl":"http://localhost:8080"
+    },
+    "staging":{
+        "backendServerUrl":"https://api.defirelay.com"
+    },
+    "production":{
+        "backendServerUrl":"https://api.defirelay.com"
+    } 
+
+}
+

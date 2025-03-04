@@ -1,0 +1,2514 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "defi-relay-backend",
+    "description": "A protocol for web3 payments.",
+    "license": {
+      "name": "MIT"
+    },
+    "version": "0.2.0"
+  },
+  "paths": {
+    "/api/apikey/create": {
+      "post": {
+        "tags": [
+          "controllers::api_key_controller"
+        ],
+        "operationId": "create_api_key",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateApiKeyInput"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Creates an api key.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AuthResponse_CreateApiKeyInput"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/apikey/delete": {
+      "post": {
+        "tags": [
+          "controllers::api_key_controller"
+        ],
+        "operationId": "delete_api_key",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DeleteApiKeyInput"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Deletes an API key by ID",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AuthResponse_DeleteApiKeyOutput"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/apikey/list": {
+      "get": {
+        "tags": [
+          "controllers::api_key_controller"
+        ],
+        "operationId": "list_api_keys",
+        "parameters": [
+          {
+            "name": "session_token",
+            "in": "query",
+            "description": "User's session token",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "wallet_public_address",
+            "in": "query",
+            "description": "User's wallet address",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Lists all API keys for a user",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AuthResponse_Vec_ListApiKeysOutput"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/client_key/create": {
+      "post": {
+        "tags": [
+          "controllers::refill::api_client_keys_controller"
+        ],
+        "operationId": "create_client_key",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateClientKeyInput"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Creates a new API client key for a workspace without authentication.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AuthResponse_ClientKeyCreatedOutput"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/client_key/find_by_workspace_and_client": {
+      "post": {
+        "tags": [
+          "controllers::refill::api_client_keys_controller"
+        ],
+        "operationId": "find_by_workspace_and_client",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/FindByWorkspaceAndClientInput"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Finds client key for a specific workspace and client address.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AuthResponse_ClientKeyOutput"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/client_key/list": {
+      "post": {
+        "tags": [
+          "controllers::refill::api_client_keys_controller"
+        ],
+        "operationId": "list_client_keys",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ListClientKeysInput"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Lists all client keys for a workspace.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AuthResponse_PaginatedResponse_ClientKeyOutput"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/credit_refill/find_all_for_client_address": {
+      "post": {
+        "tags": [
+          "controllers::refill::api_credit_refills_controller"
+        ],
+        "operationId": "find_all_for_client_address",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/FindByClientAddressInput"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Finds credit refills for a specific client address.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AuthResponse_PaginatedResponse_SelectedRecord_ApiCreditRefill"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/credit_refill/find_by_workspace": {
+      "post": {
+        "tags": [
+          "controllers::refill::api_credit_refills_controller"
+        ],
+        "operationId": "find_by_workspace",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/FindByWorkspaceInput"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Finds credit refills for a specific workspace.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AuthResponse_PaginatedResponse_SelectedRecord_ApiCreditRefill"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/credit_refill/find_by_workspace_and_client_address": {
+      "post": {
+        "tags": [
+          "controllers::refill::api_credit_refills_controller"
+        ],
+        "operationId": "find_by_workspace_and_client_address",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/FindByWorkspaceAndClientAddressInput"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Finds credit refills for a specific client address in a workspace.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AuthResponse_PaginatedResponse_SelectedRecord_ApiCreditRefill"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/credit_refill/refill": {
+      "post": {
+        "tags": [
+          "controllers::refill::api_credit_refills_controller"
+        ],
+        "operationId": "refill",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RefillInput"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Creates a new invoice for adding credits to a client key"
+          }
+        }
+      }
+    },
+    "/api/invoice_templates/create": {
+      "post": {
+        "tags": [
+          "controllers::invoice_templates_controller"
+        ],
+        "operationId": "create_invoice_template",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateInvoiceTemplateInput"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Creates a new invoice template.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AuthResponse_InvoiceTemplate"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/invoice_templates/find_by_uuid": {
+      "get": {
+        "tags": [
+          "controllers::invoice_templates_controller"
+        ],
+        "operationId": "get_invoice_template_by_uuid",
+        "parameters": [
+          {
+            "name": "template_uuid",
+            "in": "query",
+            "description": "The invoice template UUID",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Returns an invoice template by UUID.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InvoiceTemplate"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/invoice_templates/list": {
+      "post": {
+        "tags": [
+          "controllers::invoice_templates_controller"
+        ],
+        "operationId": "list_invoice_templates",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ListInvoiceTemplatesQuery"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Lists invoice templates for a wallet address.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AuthResponse_PaginatedResponse_InvoiceTemplate"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/invoices/create": {
+      "post": {
+        "tags": [
+          "controllers::invoices_controller"
+        ],
+        "operationId": "create_invoice",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateInvoiceInput"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Creates a new invoice.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AuthResponse_Invoice"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/invoices/find_by_uuid": {
+      "get": {
+        "tags": [
+          "controllers::invoices_controller"
+        ],
+        "summary": "Get an invoice by UUID without requiring authentication",
+        "operationId": "get_invoice_by_uuid",
+        "parameters": [
+          {
+            "name": "uuid",
+            "in": "query",
+            "description": "The invoice UUID",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Returns an invoice by UUID.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FindInvoiceByUuidOutput"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/invoices/list": {
+      "post": {
+        "tags": [
+          "controllers::invoices_controller"
+        ],
+        "operationId": "list_invoices",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ListInvoicesQuery"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Lists invoices for a wallet address.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AuthResponse_PaginatedResponse_Invoice"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/payments/find_by_invoice_uuid": {
+      "get": {
+        "tags": [
+          "controllers::payments_controller"
+        ],
+        "operationId": "find_payment_by_invoice_uuid",
+        "parameters": [
+          {
+            "name": "invoice_uuid",
+            "in": "path",
+            "description": "UUID of the invoice to find payment for",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/DomainBytes32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Payment found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Payment not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/payments/list": {
+      "post": {
+        "tags": [
+          "controllers::payments_controller"
+        ],
+        "operationId": "list_payments",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ListPaymentsQuery"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "List of payments",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AuthResponse_String"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AuthResponse_String"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/token_symbols/list_by_chain": {
+      "post": {
+        "tags": [
+          "controllers::token_symbols_controller"
+        ],
+        "operationId": "list_token_symbols_by_chain",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ListTokenSymbolsByChainInput"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "List of token symbols for the specified chain",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AuthResponse_Vec_TokenSymbol"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AuthResponse_String"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/workspace/create": {
+      "post": {
+        "tags": [
+          "controllers::refill::api_workspaces_controller"
+        ],
+        "operationId": "create_workspace",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateWorkspaceInput"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Creates a new API workspace.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AuthResponse_WorkspaceCreatedOutput"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/workspace/find_by_uuid": {
+      "get": {
+        "tags": [
+          "controllers::refill::api_workspaces_controller"
+        ],
+        "operationId": "find_workspace",
+        "parameters": [
+          {
+            "name": "uuid",
+            "in": "path",
+            "description": "The workspace UUID",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Returns a workspace by UUID.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AuthResponse_SelectedRecord_ApiWorkspace"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/workspace/list": {
+      "post": {
+        "tags": [
+          "controllers::refill::api_workspaces_controller"
+        ],
+        "operationId": "list_workspaces",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ListWorkspacesInput"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Lists all workspaces for the authenticated user.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AuthResponse_PaginatedResponse_SelectedRecord_ApiWorkspace"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "ApiCreditRefill": {
+        "type": "integer",
+        "format": "byte"
+      },
+      "ApiWorkspace": {
+        "type": "integer",
+        "format": "byte"
+      },
+      "AuthResponse_ClientKeyCreatedOutput": {
+        "type": "object",
+        "required": [
+          "success"
+        ],
+        "properties": {
+          "data": {
+            "type": "object",
+            "required": [
+              "client_key"
+            ],
+            "properties": {
+              "client_key": {
+                "type": "string"
+              }
+            }
+          },
+          "error": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "success": {
+            "type": "boolean"
+          }
+        }
+      },
+      "AuthResponse_ClientKeyOutput": {
+        "type": "object",
+        "required": [
+          "success"
+        ],
+        "properties": {
+          "data": {
+            "type": "object",
+            "required": [
+              "id",
+              "client_address",
+              "credits",
+              "created_at"
+            ],
+            "properties": {
+              "client_address": {
+                "$ref": "#/components/schemas/DomainEthAddress"
+              },
+              "created_at": {
+                "$ref": "#/components/schemas/DomainDatetime"
+              },
+              "credits": {
+                "$ref": "#/components/schemas/DomainDecimal"
+              },
+              "id": {
+                "type": "integer",
+                "format": "int32"
+              },
+              "name": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              }
+            }
+          },
+          "error": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "success": {
+            "type": "boolean"
+          }
+        }
+      },
+      "AuthResponse_CreateApiKeyInput": {
+        "type": "object",
+        "required": [
+          "success"
+        ],
+        "properties": {
+          "data": {
+            "type": "object",
+            "required": [
+              "session_token",
+              "wallet_public_address"
+            ],
+            "properties": {
+              "name": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "session_token": {
+                "type": "string"
+              },
+              "wallet_public_address": {
+                "type": "string"
+              }
+            }
+          },
+          "error": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "success": {
+            "type": "boolean"
+          }
+        }
+      },
+      "AuthResponse_DeleteApiKeyOutput": {
+        "type": "object",
+        "required": [
+          "success"
+        ],
+        "properties": {
+          "data": {
+            "type": "object",
+            "required": [
+              "deleted"
+            ],
+            "properties": {
+              "deleted": {
+                "type": "boolean"
+              }
+            }
+          },
+          "error": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "success": {
+            "type": "boolean"
+          }
+        }
+      },
+      "AuthResponse_Invoice": {
+        "type": "object",
+        "required": [
+          "success"
+        ],
+        "properties": {
+          "data": {
+            "type": "object",
+            "required": [
+              "contract_address",
+              "owner_address",
+              "token_address",
+              "pay_to_array",
+              "pay_to_amounts",
+              "nonce",
+              "chain_id",
+              "uuid"
+            ],
+            "properties": {
+              "chain_id": {
+                "type": "integer",
+                "format": "int64"
+              },
+              "contract_address": {
+                "$ref": "#/components/schemas/DomainEthAddress"
+              },
+              "created_at": {
+                "oneOf": [
+                  {
+                    "type": "null"
+                  },
+                  {
+                    "$ref": "#/components/schemas/DomainDatetime"
+                  }
+                ]
+              },
+              "created_for_address": {
+                "oneOf": [
+                  {
+                    "type": "null"
+                  },
+                  {
+                    "$ref": "#/components/schemas/DomainEthAddress"
+                  }
+                ]
+              },
+              "invoice_template_uuid": {
+                "oneOf": [
+                  {
+                    "type": "null"
+                  },
+                  {
+                    "$ref": "#/components/schemas/DomainBytes32"
+                  }
+                ]
+              },
+              "metadata": {
+                "oneOf": [
+                  {
+                    "type": "null"
+                  },
+                  {
+                    "$ref": "#/components/schemas/DomainJson"
+                  }
+                ]
+              },
+              "nonce": {
+                "$ref": "#/components/schemas/DomainUint256"
+              },
+              "owner_address": {
+                "$ref": "#/components/schemas/DomainEthAddress"
+              },
+              "pay_to_amounts": {
+                "$ref": "#/components/schemas/DomainPayToAmounts"
+              },
+              "pay_to_array": {
+                "$ref": "#/components/schemas/DomainPayToArray"
+              },
+              "token_address": {
+                "$ref": "#/components/schemas/DomainEthAddress"
+              },
+              "uuid": {
+                "$ref": "#/components/schemas/DomainBytes32"
+              }
+            }
+          },
+          "error": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "success": {
+            "type": "boolean"
+          }
+        }
+      },
+      "AuthResponse_InvoiceTemplate": {
+        "type": "object",
+        "required": [
+          "success"
+        ],
+        "properties": {
+          "data": {
+            "type": "object",
+            "required": [
+              "contract_address",
+              "owner_address",
+              "token_address",
+              "pay_to_array",
+              "pay_to_amounts",
+              "template_uuid",
+              "chain_id"
+            ],
+            "properties": {
+              "chain_id": {
+                "type": "integer",
+                "format": "int64"
+              },
+              "contract_address": {
+                "$ref": "#/components/schemas/DomainEthAddress"
+              },
+              "created_at": {
+                "oneOf": [
+                  {
+                    "type": "null"
+                  },
+                  {
+                    "$ref": "#/components/schemas/DomainDatetime"
+                  }
+                ]
+              },
+              "metadata": {
+                "oneOf": [
+                  {
+                    "type": "null"
+                  },
+                  {
+                    "$ref": "#/components/schemas/DomainJson"
+                  }
+                ]
+              },
+              "owner_address": {
+                "$ref": "#/components/schemas/DomainEthAddress"
+              },
+              "pay_to_amounts": {
+                "$ref": "#/components/schemas/DomainPayToAmounts"
+              },
+              "pay_to_array": {
+                "$ref": "#/components/schemas/DomainPayToArray"
+              },
+              "template_uuid": {
+                "$ref": "#/components/schemas/DomainBytes32"
+              },
+              "token_address": {
+                "$ref": "#/components/schemas/DomainEthAddress"
+              }
+            }
+          },
+          "error": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "success": {
+            "type": "boolean"
+          }
+        }
+      },
+      "AuthResponse_PaginatedResponse_ClientKeyOutput": {
+        "type": "object",
+        "required": [
+          "success"
+        ],
+        "properties": {
+          "data": {
+            "type": "object",
+            "required": [
+              "items",
+              "total_count",
+              "page",
+              "page_size",
+              "total_pages"
+            ],
+            "properties": {
+              "items": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "required": [
+                    "id",
+                    "client_address",
+                    "credits",
+                    "created_at"
+                  ],
+                  "properties": {
+                    "client_address": {
+                      "$ref": "#/components/schemas/DomainEthAddress"
+                    },
+                    "created_at": {
+                      "$ref": "#/components/schemas/DomainDatetime"
+                    },
+                    "credits": {
+                      "$ref": "#/components/schemas/DomainDecimal"
+                    },
+                    "id": {
+                      "type": "integer",
+                      "format": "int32"
+                    },
+                    "name": {
+                      "type": [
+                        "string",
+                        "null"
+                      ]
+                    }
+                  }
+                }
+              },
+              "page": {
+                "type": "integer",
+                "format": "int64"
+              },
+              "page_size": {
+                "type": "integer",
+                "format": "int64"
+              },
+              "total_count": {
+                "type": "integer",
+                "format": "int64"
+              },
+              "total_pages": {
+                "type": "integer",
+                "format": "int64"
+              }
+            }
+          },
+          "error": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "success": {
+            "type": "boolean"
+          }
+        }
+      },
+      "AuthResponse_PaginatedResponse_Invoice": {
+        "type": "object",
+        "required": [
+          "success"
+        ],
+        "properties": {
+          "data": {
+            "type": "object",
+            "required": [
+              "items",
+              "total_count",
+              "page",
+              "page_size",
+              "total_pages"
+            ],
+            "properties": {
+              "items": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "required": [
+                    "contract_address",
+                    "owner_address",
+                    "token_address",
+                    "pay_to_array",
+                    "pay_to_amounts",
+                    "nonce",
+                    "chain_id",
+                    "uuid"
+                  ],
+                  "properties": {
+                    "chain_id": {
+                      "type": "integer",
+                      "format": "int64"
+                    },
+                    "contract_address": {
+                      "$ref": "#/components/schemas/DomainEthAddress"
+                    },
+                    "created_at": {
+                      "oneOf": [
+                        {
+                          "type": "null"
+                        },
+                        {
+                          "$ref": "#/components/schemas/DomainDatetime"
+                        }
+                      ]
+                    },
+                    "created_for_address": {
+                      "oneOf": [
+                        {
+                          "type": "null"
+                        },
+                        {
+                          "$ref": "#/components/schemas/DomainEthAddress"
+                        }
+                      ]
+                    },
+                    "invoice_template_uuid": {
+                      "oneOf": [
+                        {
+                          "type": "null"
+                        },
+                        {
+                          "$ref": "#/components/schemas/DomainBytes32"
+                        }
+                      ]
+                    },
+                    "metadata": {
+                      "oneOf": [
+                        {
+                          "type": "null"
+                        },
+                        {
+                          "$ref": "#/components/schemas/DomainJson"
+                        }
+                      ]
+                    },
+                    "nonce": {
+                      "$ref": "#/components/schemas/DomainUint256"
+                    },
+                    "owner_address": {
+                      "$ref": "#/components/schemas/DomainEthAddress"
+                    },
+                    "pay_to_amounts": {
+                      "$ref": "#/components/schemas/DomainPayToAmounts"
+                    },
+                    "pay_to_array": {
+                      "$ref": "#/components/schemas/DomainPayToArray"
+                    },
+                    "token_address": {
+                      "$ref": "#/components/schemas/DomainEthAddress"
+                    },
+                    "uuid": {
+                      "$ref": "#/components/schemas/DomainBytes32"
+                    }
+                  }
+                }
+              },
+              "page": {
+                "type": "integer",
+                "format": "int64"
+              },
+              "page_size": {
+                "type": "integer",
+                "format": "int64"
+              },
+              "total_count": {
+                "type": "integer",
+                "format": "int64"
+              },
+              "total_pages": {
+                "type": "integer",
+                "format": "int64"
+              }
+            }
+          },
+          "error": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "success": {
+            "type": "boolean"
+          }
+        }
+      },
+      "AuthResponse_PaginatedResponse_InvoiceTemplate": {
+        "type": "object",
+        "required": [
+          "success"
+        ],
+        "properties": {
+          "data": {
+            "type": "object",
+            "required": [
+              "items",
+              "total_count",
+              "page",
+              "page_size",
+              "total_pages"
+            ],
+            "properties": {
+              "items": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "required": [
+                    "contract_address",
+                    "owner_address",
+                    "token_address",
+                    "pay_to_array",
+                    "pay_to_amounts",
+                    "template_uuid",
+                    "chain_id"
+                  ],
+                  "properties": {
+                    "chain_id": {
+                      "type": "integer",
+                      "format": "int64"
+                    },
+                    "contract_address": {
+                      "$ref": "#/components/schemas/DomainEthAddress"
+                    },
+                    "created_at": {
+                      "oneOf": [
+                        {
+                          "type": "null"
+                        },
+                        {
+                          "$ref": "#/components/schemas/DomainDatetime"
+                        }
+                      ]
+                    },
+                    "metadata": {
+                      "oneOf": [
+                        {
+                          "type": "null"
+                        },
+                        {
+                          "$ref": "#/components/schemas/DomainJson"
+                        }
+                      ]
+                    },
+                    "owner_address": {
+                      "$ref": "#/components/schemas/DomainEthAddress"
+                    },
+                    "pay_to_amounts": {
+                      "$ref": "#/components/schemas/DomainPayToAmounts"
+                    },
+                    "pay_to_array": {
+                      "$ref": "#/components/schemas/DomainPayToArray"
+                    },
+                    "template_uuid": {
+                      "$ref": "#/components/schemas/DomainBytes32"
+                    },
+                    "token_address": {
+                      "$ref": "#/components/schemas/DomainEthAddress"
+                    }
+                  }
+                }
+              },
+              "page": {
+                "type": "integer",
+                "format": "int64"
+              },
+              "page_size": {
+                "type": "integer",
+                "format": "int64"
+              },
+              "total_count": {
+                "type": "integer",
+                "format": "int64"
+              },
+              "total_pages": {
+                "type": "integer",
+                "format": "int64"
+              }
+            }
+          },
+          "error": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "success": {
+            "type": "boolean"
+          }
+        }
+      },
+      "AuthResponse_PaginatedResponse_SelectedRecord_ApiCreditRefill": {
+        "type": "object",
+        "required": [
+          "success"
+        ],
+        "properties": {
+          "data": {
+            "type": "object",
+            "required": [
+              "items",
+              "total_count",
+              "page",
+              "page_size",
+              "total_pages"
+            ],
+            "properties": {
+              "items": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "required": [
+                    "id",
+                    "entry"
+                  ],
+                  "properties": {
+                    "entry": {
+                      "type": "integer",
+                      "format": "byte"
+                    },
+                    "id": {
+                      "$ref": "#/components/schemas/id(i32)"
+                    }
+                  }
+                }
+              },
+              "page": {
+                "type": "integer",
+                "format": "int64"
+              },
+              "page_size": {
+                "type": "integer",
+                "format": "int64"
+              },
+              "total_count": {
+                "type": "integer",
+                "format": "int64"
+              },
+              "total_pages": {
+                "type": "integer",
+                "format": "int64"
+              }
+            }
+          },
+          "error": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "success": {
+            "type": "boolean"
+          }
+        }
+      },
+      "AuthResponse_PaginatedResponse_SelectedRecord_ApiWorkspace": {
+        "type": "object",
+        "required": [
+          "success"
+        ],
+        "properties": {
+          "data": {
+            "type": "object",
+            "required": [
+              "items",
+              "total_count",
+              "page",
+              "page_size",
+              "total_pages"
+            ],
+            "properties": {
+              "items": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "required": [
+                    "id",
+                    "entry"
+                  ],
+                  "properties": {
+                    "entry": {
+                      "type": "integer",
+                      "format": "byte"
+                    },
+                    "id": {
+                      "$ref": "#/components/schemas/id(i32)"
+                    }
+                  }
+                }
+              },
+              "page": {
+                "type": "integer",
+                "format": "int64"
+              },
+              "page_size": {
+                "type": "integer",
+                "format": "int64"
+              },
+              "total_count": {
+                "type": "integer",
+                "format": "int64"
+              },
+              "total_pages": {
+                "type": "integer",
+                "format": "int64"
+              }
+            }
+          },
+          "error": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "success": {
+            "type": "boolean"
+          }
+        }
+      },
+      "AuthResponse_SelectedRecord_ApiWorkspace": {
+        "type": "object",
+        "required": [
+          "success"
+        ],
+        "properties": {
+          "data": {
+            "type": "object",
+            "required": [
+              "id",
+              "entry"
+            ],
+            "properties": {
+              "entry": {
+                "type": "integer",
+                "format": "byte"
+              },
+              "id": {
+                "$ref": "#/components/schemas/id(i32)"
+              }
+            }
+          },
+          "error": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "success": {
+            "type": "boolean"
+          }
+        }
+      },
+      "AuthResponse_String": {
+        "type": "object",
+        "required": [
+          "success"
+        ],
+        "properties": {
+          "data": {
+            "type": "string"
+          },
+          "error": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "success": {
+            "type": "boolean"
+          }
+        }
+      },
+      "AuthResponse_Vec_ListApiKeysOutput": {
+        "type": "object",
+        "required": [
+          "success"
+        ],
+        "properties": {
+          "data": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": [
+                "api_key_id",
+                "api_key",
+                "created_at"
+              ],
+              "properties": {
+                "api_key": {
+                  "type": "string"
+                },
+                "api_key_id": {
+                  "type": "integer",
+                  "format": "int32"
+                },
+                "created_at": {
+                  "type": "integer",
+                  "format": "int64"
+                },
+                "name": {
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                }
+              }
+            }
+          },
+          "error": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "success": {
+            "type": "boolean"
+          }
+        }
+      },
+      "AuthResponse_Vec_TokenSymbol": {
+        "type": "object",
+        "required": [
+          "success"
+        ],
+        "properties": {
+          "data": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": [
+                "token_address",
+                "chain_id",
+                "token_decimals",
+                "token_symbol",
+                "created_at"
+              ],
+              "properties": {
+                "chain_id": {
+                  "type": "integer",
+                  "format": "int64"
+                },
+                "created_at": {
+                  "$ref": "#/components/schemas/DomainDatetime"
+                },
+                "token_address": {
+                  "$ref": "#/components/schemas/DomainEthAddress"
+                },
+                "token_decimals": {
+                  "type": "integer",
+                  "format": "int64"
+                },
+                "token_symbol": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "error": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "success": {
+            "type": "boolean"
+          }
+        }
+      },
+      "AuthResponse_WorkspaceCreatedOutput": {
+        "type": "object",
+        "required": [
+          "success"
+        ],
+        "properties": {
+          "data": {
+            "type": "object",
+            "required": [
+              "workspace_uuid"
+            ],
+            "properties": {
+              "workspace_uuid": {
+                "$ref": "#/components/schemas/DomainBytes8"
+              }
+            }
+          },
+          "error": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "success": {
+            "type": "boolean"
+          }
+        }
+      },
+      "ClientKeyCreatedOutput": {
+        "type": "object",
+        "required": [
+          "client_key"
+        ],
+        "properties": {
+          "client_key": {
+            "type": "string"
+          }
+        }
+      },
+      "ClientKeyOutput": {
+        "type": "object",
+        "required": [
+          "id",
+          "client_address",
+          "credits",
+          "created_at"
+        ],
+        "properties": {
+          "client_address": {
+            "$ref": "#/components/schemas/DomainEthAddress"
+          },
+          "created_at": {
+            "$ref": "#/components/schemas/DomainDatetime"
+          },
+          "credits": {
+            "$ref": "#/components/schemas/DomainDecimal"
+          },
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "name": {
+            "type": [
+              "string",
+              "null"
+            ]
+          }
+        }
+      },
+      "ColumnSortDir": {
+        "type": "string",
+        "enum": [
+          "Asc",
+          "Desc"
+        ]
+      },
+      "CreateApiKeyInput": {
+        "type": "object",
+        "required": [
+          "session_token",
+          "wallet_public_address"
+        ],
+        "properties": {
+          "name": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "session_token": {
+            "type": "string"
+          },
+          "wallet_public_address": {
+            "type": "string"
+          }
+        }
+      },
+      "CreateClientKeyInput": {
+        "type": "object",
+        "required": [
+          "session_token",
+          "workspace_uuid"
+        ],
+        "properties": {
+          "name": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "session_token": {
+            "type": "string"
+          },
+          "workspace_uuid": {
+            "$ref": "#/components/schemas/DomainBytes8"
+          }
+        }
+      },
+      "CreateInvoiceInput": {
+        "type": "object",
+        "required": [
+          "session_token",
+          "chain_id",
+          "token_address",
+          "pay_to_array",
+          "pay_to_amounts"
+        ],
+        "properties": {
+          "chain_id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "created_for_address": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "$ref": "#/components/schemas/DomainEthAddress"
+              }
+            ]
+          },
+          "metadata": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "$ref": "#/components/schemas/DomainJson"
+              }
+            ]
+          },
+          "nonce": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "$ref": "#/components/schemas/DomainUint256"
+              }
+            ]
+          },
+          "pay_to_amounts": {
+            "$ref": "#/components/schemas/DomainPayToAmounts"
+          },
+          "pay_to_array": {
+            "$ref": "#/components/schemas/DomainPayToArray"
+          },
+          "session_token": {
+            "type": "string"
+          },
+          "token_address": {
+            "$ref": "#/components/schemas/DomainEthAddress"
+          }
+        }
+      },
+      "CreateInvoiceTemplateInput": {
+        "type": "object",
+        "required": [
+          "session_token",
+          "chain_id",
+          "token_address",
+          "pay_to_array",
+          "pay_to_amounts"
+        ],
+        "properties": {
+          "chain_id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "metadata": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "$ref": "#/components/schemas/DomainJson"
+              }
+            ]
+          },
+          "pay_to_amounts": {
+            "$ref": "#/components/schemas/DomainPayToAmounts"
+          },
+          "pay_to_array": {
+            "$ref": "#/components/schemas/DomainPayToArray"
+          },
+          "session_token": {
+            "type": "string"
+          },
+          "token_address": {
+            "$ref": "#/components/schemas/DomainEthAddress"
+          }
+        }
+      },
+      "CreateWorkspaceInput": {
+        "type": "object",
+        "required": [
+          "session_token",
+          "name"
+        ],
+        "properties": {
+          "description": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "invoice_template_uuid": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "name": {
+            "type": "string"
+          },
+          "session_token": {
+            "type": "string"
+          }
+        }
+      },
+      "DeleteApiKeyInput": {
+        "type": "object",
+        "required": [
+          "api_key"
+        ],
+        "properties": {
+          "api_key": {
+            "type": "string"
+          }
+        }
+      },
+      "DeleteApiKeyOutput": {
+        "type": "object",
+        "required": [
+          "deleted"
+        ],
+        "properties": {
+          "deleted": {
+            "type": "boolean"
+          }
+        }
+      },
+      "DomainBytes32": {
+        "type": "string",
+        "description": "32-byte value represented as a hex string"
+      },
+      "DomainBytes8": {
+        "type": "string",
+        "description": "8-byte value represented as a hex string"
+      },
+      "DomainDatetime": {
+        "type": "string",
+        "format": "date-time",
+        "description": "UTC date and time value"
+      },
+      "DomainDecimal": {
+        "type": "number",
+        "format": "double"
+      },
+      "DomainEthAddress": {
+        "type": "string",
+        "description": "Ethereum address in hex format"
+      },
+      "DomainJson": {
+        "type": "object",
+        "description": "JSON data"
+      },
+      "DomainPayToAmounts": {
+        "type": "array",
+        "description": "Array of token amounts as strings"
+      },
+      "DomainPayToArray": {
+        "type": "array",
+        "description": "Array of Ethereum addresses"
+      },
+      "DomainUint256": {
+        "type": "string",
+        "description": "256-bit unsigned integer represented as a decimal string"
+      },
+      "FindByClientAddressInput": {
+        "type": "object",
+        "required": [
+          "session_token"
+        ],
+        "properties": {
+          "pagination": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "$ref": "#/components/schemas/PaginationData"
+              }
+            ]
+          },
+          "session_token": {
+            "type": "string"
+          }
+        }
+      },
+      "FindByWorkspaceAndClientAddressInput": {
+        "type": "object",
+        "required": [
+          "session_token",
+          "workspace_uuid"
+        ],
+        "properties": {
+          "pagination": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "$ref": "#/components/schemas/PaginationData"
+              }
+            ]
+          },
+          "session_token": {
+            "type": "string"
+          },
+          "workspace_uuid": {
+            "$ref": "#/components/schemas/DomainBytes8"
+          }
+        }
+      },
+      "FindByWorkspaceAndClientInput": {
+        "type": "object",
+        "required": [
+          "workspace_uuid",
+          "session_token"
+        ],
+        "properties": {
+          "session_token": {
+            "type": "string"
+          },
+          "workspace_uuid": {
+            "$ref": "#/components/schemas/DomainBytes8"
+          }
+        }
+      },
+      "FindByWorkspaceInput": {
+        "type": "object",
+        "required": [
+          "session_token",
+          "workspace_uuid"
+        ],
+        "properties": {
+          "pagination": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "$ref": "#/components/schemas/PaginationData"
+              }
+            ]
+          },
+          "session_token": {
+            "type": "string"
+          },
+          "workspace_uuid": {
+            "$ref": "#/components/schemas/DomainBytes8"
+          }
+        }
+      },
+      "FindInvoiceByUuidOutput": {
+        "type": "object",
+        "required": [
+          "invoice",
+          "raw_tx",
+          "amount_total",
+          "token_decimals",
+          "token_symbol"
+        ],
+        "properties": {
+          "amount_total": {
+            "$ref": "#/components/schemas/DomainUint256"
+          },
+          "invoice": {
+            "$ref": "#/components/schemas/Invoice"
+          },
+          "raw_tx": {
+            "$ref": "#/components/schemas/RawTx"
+          },
+          "token_decimals": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "token_symbol": {
+            "type": "string"
+          }
+        }
+      },
+      "Invoice": {
+        "type": "object",
+        "required": [
+          "contract_address",
+          "owner_address",
+          "token_address",
+          "pay_to_array",
+          "pay_to_amounts",
+          "nonce",
+          "chain_id",
+          "uuid"
+        ],
+        "properties": {
+          "chain_id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "contract_address": {
+            "$ref": "#/components/schemas/DomainEthAddress"
+          },
+          "created_at": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "$ref": "#/components/schemas/DomainDatetime"
+              }
+            ]
+          },
+          "created_for_address": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "$ref": "#/components/schemas/DomainEthAddress"
+              }
+            ]
+          },
+          "invoice_template_uuid": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "$ref": "#/components/schemas/DomainBytes32"
+              }
+            ]
+          },
+          "metadata": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "$ref": "#/components/schemas/DomainJson"
+              }
+            ]
+          },
+          "nonce": {
+            "$ref": "#/components/schemas/DomainUint256"
+          },
+          "owner_address": {
+            "$ref": "#/components/schemas/DomainEthAddress"
+          },
+          "pay_to_amounts": {
+            "$ref": "#/components/schemas/DomainPayToAmounts"
+          },
+          "pay_to_array": {
+            "$ref": "#/components/schemas/DomainPayToArray"
+          },
+          "token_address": {
+            "$ref": "#/components/schemas/DomainEthAddress"
+          },
+          "uuid": {
+            "$ref": "#/components/schemas/DomainBytes32"
+          }
+        }
+      },
+      "InvoiceTemplate": {
+        "type": "object",
+        "required": [
+          "contract_address",
+          "owner_address",
+          "token_address",
+          "pay_to_array",
+          "pay_to_amounts",
+          "template_uuid",
+          "chain_id"
+        ],
+        "properties": {
+          "chain_id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "contract_address": {
+            "$ref": "#/components/schemas/DomainEthAddress"
+          },
+          "created_at": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "$ref": "#/components/schemas/DomainDatetime"
+              }
+            ]
+          },
+          "metadata": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "$ref": "#/components/schemas/DomainJson"
+              }
+            ]
+          },
+          "owner_address": {
+            "$ref": "#/components/schemas/DomainEthAddress"
+          },
+          "pay_to_amounts": {
+            "$ref": "#/components/schemas/DomainPayToAmounts"
+          },
+          "pay_to_array": {
+            "$ref": "#/components/schemas/DomainPayToArray"
+          },
+          "template_uuid": {
+            "$ref": "#/components/schemas/DomainBytes32"
+          },
+          "token_address": {
+            "$ref": "#/components/schemas/DomainEthAddress"
+          }
+        }
+      },
+      "ListApiKeysOutput": {
+        "type": "object",
+        "required": [
+          "api_key_id",
+          "api_key",
+          "created_at"
+        ],
+        "properties": {
+          "api_key": {
+            "type": "string"
+          },
+          "api_key_id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "created_at": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "name": {
+            "type": [
+              "string",
+              "null"
+            ]
+          }
+        }
+      },
+      "ListClientKeysInput": {
+        "type": "object",
+        "required": [
+          "workspace_uuid"
+        ],
+        "properties": {
+          "pagination": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "$ref": "#/components/schemas/PaginationData"
+              }
+            ]
+          },
+          "workspace_uuid": {
+            "$ref": "#/components/schemas/DomainBytes8"
+          }
+        }
+      },
+      "ListInvoiceTemplatesQuery": {
+        "type": "object",
+        "required": [
+          "session_token",
+          "wallet_public_address"
+        ],
+        "properties": {
+          "chain_id": {
+            "type": [
+              "integer",
+              "null"
+            ],
+            "format": "int64"
+          },
+          "pagination": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "$ref": "#/components/schemas/PaginationData"
+              }
+            ]
+          },
+          "session_token": {
+            "type": "string"
+          },
+          "wallet_public_address": {
+            "$ref": "#/components/schemas/DomainEthAddress"
+          }
+        }
+      },
+      "ListInvoicesQuery": {
+        "type": "object",
+        "required": [
+          "session_token",
+          "wallet_public_address"
+        ],
+        "properties": {
+          "chain_id": {
+            "type": [
+              "integer",
+              "null"
+            ],
+            "format": "int64"
+          },
+          "pagination": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "$ref": "#/components/schemas/PaginationData"
+              }
+            ]
+          },
+          "session_token": {
+            "type": "string"
+          },
+          "wallet_public_address": {
+            "$ref": "#/components/schemas/DomainEthAddress"
+          }
+        }
+      },
+      "ListPaymentsQuery": {
+        "type": "object",
+        "required": [
+          "session_token"
+        ],
+        "properties": {
+          "chain_id": {
+            "type": [
+              "integer",
+              "null"
+            ],
+            "format": "int64"
+          },
+          "pagination": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "$ref": "#/components/schemas/PaginationData"
+              }
+            ]
+          },
+          "session_token": {
+            "type": "string"
+          }
+        }
+      },
+      "ListTokenSymbolsByChainInput": {
+        "type": "object",
+        "required": [
+          "chain_id"
+        ],
+        "properties": {
+          "chain_id": {
+            "type": "integer",
+            "format": "int64"
+          }
+        }
+      },
+      "ListWorkspacesInput": {
+        "type": "object",
+        "required": [
+          "session_token"
+        ],
+        "properties": {
+          "pagination": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "$ref": "#/components/schemas/PaginationData"
+              }
+            ]
+          },
+          "session_token": {
+            "type": "string"
+          }
+        }
+      },
+      "PaginationData": {
+        "type": "object",
+        "properties": {
+          "page": {
+            "type": [
+              "integer",
+              "null"
+            ],
+            "format": "int64"
+          },
+          "page_size": {
+            "type": [
+              "integer",
+              "null"
+            ],
+            "format": "int64"
+          },
+          "sort_by": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "$ref": "#/components/schemas/TinySafeString"
+              }
+            ]
+          },
+          "sort_dir": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "$ref": "#/components/schemas/ColumnSortDir"
+              }
+            ]
+          }
+        }
+      },
+      "RawTx": {
+        "type": "object",
+        "required": [
+          "chain_id",
+          "to",
+          "data"
+        ],
+        "properties": {
+          "chain_id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "data": {
+            "$ref": "#/components/schemas/TransactionCalldata"
+          },
+          "to": {
+            "$ref": "#/components/schemas/DomainEthAddress"
+          },
+          "value": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "$ref": "#/components/schemas/DomainUint256"
+              }
+            ]
+          }
+        }
+      },
+      "RefillInput": {
+        "type": "object",
+        "required": [
+          "session_token",
+          "workspace_uuid",
+          "chain_id",
+          "token_address",
+          "amount_cents"
+        ],
+        "properties": {
+          "amount_cents": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "chain_id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "session_token": {
+            "type": "string"
+          },
+          "token_address": {
+            "$ref": "#/components/schemas/DomainEthAddress"
+          },
+          "workspace_uuid": {
+            "$ref": "#/components/schemas/DomainBytes8"
+          }
+        }
+      },
+      "TinySafeString": {
+        "type": "string"
+      },
+      "TokenSymbol": {
+        "type": "object",
+        "required": [
+          "token_address",
+          "chain_id",
+          "token_decimals",
+          "token_symbol",
+          "created_at"
+        ],
+        "properties": {
+          "chain_id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "created_at": {
+            "$ref": "#/components/schemas/DomainDatetime"
+          },
+          "token_address": {
+            "$ref": "#/components/schemas/DomainEthAddress"
+          },
+          "token_decimals": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "token_symbol": {
+            "type": "string"
+          }
+        }
+      },
+      "TransactionCalldata": {
+        "type": "array",
+        "items": {
+          "type": "integer",
+          "format": "int32",
+          "minimum": 0
+        }
+      },
+      "WorkspaceCreatedOutput": {
+        "type": "object",
+        "required": [
+          "workspace_uuid"
+        ],
+        "properties": {
+          "workspace_uuid": {
+            "$ref": "#/components/schemas/DomainBytes8"
+          }
+        }
+      },
+      "id(i32)": {
+        "type": "integer",
+        "description": "Database record identifier"
+      }
+    }
+  }
+}

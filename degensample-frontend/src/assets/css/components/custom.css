@@ -1,0 +1,191 @@
+
+.rainbow-underline{
+    position: relative;
+}
+.rainbow-underline:before{
+    content: "";
+    position: absolute;
+    height: 0.1em;
+    padding: 0.1em;
+    width: 100%;
+    background: linear-gradient(
+        to right,
+        #fd004c,
+        #fe9000,
+        #fff020,
+        #3edf4b,
+        #3363ff,
+        #b102b7
+    );
+    background-size: 200% 100%;
+    bottom: -0.1em;
+    left: -0.1em;
+    transition: 1.5s;
+    opacity: 0;
+}
+.rainbow-underline:hover:before{
+    background-position: 100% 0;
+    opacity: 50;
+}
+
+/* Design System Custom Components */
+
+/* Button Styles */
+.btn-primary {
+  @apply bg-gradient-to-r from-deep-indigo to-electric-purple text-white font-medium py-3 px-4 rounded-lg transition-all duration-200;
+  @apply hover:shadow-lg hover:shadow-deep-indigo/20 focus:outline-none focus:ring-2 focus:ring-deep-indigo/50;
+}
+
+.btn-secondary {
+  @apply bg-transparent border-2 border-deep-indigo text-deep-indigo font-medium py-3 px-4 rounded-lg transition-all duration-200;
+  @apply hover:bg-deep-indigo/5 focus:outline-none focus:ring-2 focus:ring-deep-indigo/30;
+}
+
+.btn-tertiary {
+  @apply text-deep-indigo font-medium py-2 px-0 transition-all duration-200 border-b-2 border-transparent;
+  @apply hover:border-deep-indigo focus:outline-none;
+}
+
+.btn-icon {
+  @apply flex items-center justify-center w-10 h-10 rounded-full bg-cool-gray transition-all duration-200;
+  @apply hover:bg-deep-indigo/10 focus:outline-none focus:ring-2 focus:ring-deep-indigo/30;
+}
+
+/* Card Styles */
+.card {
+  @apply bg-white rounded-xl shadow-md p-6 transition-all duration-200;
+  @apply hover:shadow-lg;
+}
+
+.card-accent {
+  @apply border-l-4 border-deep-indigo;
+}
+
+.card-accent-success {
+  @apply border-l-4 border-teal-accent;
+}
+
+.card-accent-warning {
+  @apply border-l-4 border-amber-500;
+}
+
+/* Form Styles */
+.form-input {
+  @apply w-full rounded-lg border border-slate-300 px-4 py-3 text-gray-800 transition-all;
+  @apply focus:border-deep-indigo focus:ring focus:ring-deep-indigo/20 focus:outline-none;
+  @apply placeholder:text-slate-400;
+}
+
+.form-label {
+  @apply block text-sm font-medium text-gray-700 mb-1;
+}
+
+.form-error {
+  @apply text-red-600 text-sm mt-1;
+}
+
+/* Badge Styles */
+.badge {
+  @apply inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium;
+}
+
+.badge-primary {
+  @apply bg-deep-indigo/10 text-deep-indigo;
+}
+
+.badge-secondary {
+  @apply bg-electric-purple/10 text-electric-purple;
+}
+
+.badge-success {
+  @apply bg-green-100 text-green-800;
+}
+
+.badge-warning {
+  @apply bg-amber-100 text-amber-800;
+}
+
+.badge-danger {
+  @apply bg-red-100 text-red-800;
+}
+
+/* Heading Styles */
+.heading-1 {
+  @apply text-3xl font-bold text-navy-blue font-inter;
+}
+
+.heading-2 {
+  @apply text-2xl font-semibold text-navy-blue font-inter;
+}
+
+.heading-3 {
+  @apply text-xl font-semibold text-navy-blue font-inter;
+}
+
+.heading-4 {
+  @apply text-lg font-medium text-navy-blue font-inter;
+}
+
+/* Text Styles */
+.text-body {
+  @apply text-base text-slate-700 font-inter;
+}
+
+.text-small {
+  @apply text-sm text-slate-600 font-inter;
+}
+
+.text-tiny {
+  @apply text-xs text-slate-500 font-inter;
+}
+
+/* Custom gradients */
+.gradient-primary {
+  @apply bg-gradient-to-r from-deep-indigo to-electric-purple;
+}
+
+.gradient-card {
+  @apply bg-gradient-to-r from-deep-indigo/5 to-electric-purple/5 border border-deep-indigo/10;
+}
+
+/* Code blocks */
+.code-block {
+  @apply font-fira-code bg-cool-gray rounded-lg p-4 text-sm text-navy-blue;
+}
+
+/* Stats cards */
+.stat-card {
+  @apply rounded-xl shadow hover:shadow-md transition-shadow p-5;
+}
+
+/* Address display */
+.address-display {
+  @apply font-mono text-sm bg-cool-gray rounded-lg px-3 py-2 text-slate-800;
+}
+
+/* Main sidebar navigation */
+.sidebar-nav {
+  @apply w-64 bg-white shadow-md rounded-xl h-full overflow-y-auto;
+}
+
+.sidebar-nav-item {
+  @apply flex items-center w-full p-3 rounded-lg transition-colors;
+}
+
+.sidebar-nav-item-active {
+  @apply bg-gradient-to-r from-deep-indigo to-electric-purple text-white;
+}
+
+.sidebar-nav-item-inactive {
+  @apply text-slate-700 hover:bg-cool-gray;
+}
+
+/* Main container */
+.main-container {
+  @apply flex-1 bg-white p-6 rounded-xl shadow-md h-full overflow-y-auto;
+}
+
+/* Loading animation */
+.loading-pulse {
+  @apply inline-block min-w-[2rem] h-6 bg-slate-200 animate-pulse rounded-md;
+}

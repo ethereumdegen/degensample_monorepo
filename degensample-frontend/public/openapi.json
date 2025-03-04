@@ -1,0 +1,228 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "inkreel-backend",
+    "description": "",
+    "license": {
+      "name": ""
+    },
+    "version": "0.2.0"
+  },
+  "paths": {
+    "/api/apikey/create": {
+      "post": {
+        "tags": [
+          "controllers::api_key_controller"
+        ],
+        "operationId": "create_provider_api_key",
+        "responses": {
+          "200": {
+            "description": "Creates a provider api key.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AuthResponse_CreateProviderApiKeyInput"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/provider/register": {
+      "post": {
+        "tags": [
+          "controllers::provider_controller"
+        ],
+        "operationId": "register_provider",
+        "responses": {
+          "200": {
+            "description": "Registers a provider which can create api keys",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AuthResponse_ProviderDataOutput"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/tx_bundle/create": {
+      "post": {
+        "tags": [
+          "controllers::tx_controller"
+        ],
+        "operationId": "create_tx_bundle",
+        "responses": {
+          "200": {
+            "description": "Creates a tx bundle.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AuthResponse_CreateTxBundleOutput"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "AuthResponse_CreateProviderApiKeyInput": {
+        "type": "object",
+        "required": [
+          "success"
+        ],
+        "properties": {
+          "data": {
+            "type": "object",
+            "required": [
+              "session_token",
+              "wallet_public_address",
+              "provider_id"
+            ],
+            "properties": {
+              "name": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "provider_id": {
+                "type": "integer",
+                "format": "int32"
+              },
+              "session_token": {
+                "type": "string"
+              },
+              "wallet_public_address": {
+                "type": "string"
+              }
+            }
+          },
+          "error": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "success": {
+            "type": "boolean"
+          }
+        }
+      },
+      "AuthResponse_CreateTxBundleOutput": {
+        "type": "object",
+        "required": [
+          "success"
+        ],
+        "properties": {
+          "data": {
+            "type": "object",
+            "required": [
+              "tx_bundle_id"
+            ],
+            "properties": {
+              "tx_bundle_id": {
+                "type": "integer",
+                "format": "int32"
+              }
+            }
+          },
+          "error": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "success": {
+            "type": "boolean"
+          }
+        }
+      },
+      "AuthResponse_ProviderDataOutput": {
+        "type": "object",
+        "required": [
+          "success"
+        ],
+        "properties": {
+          "data": {
+            "type": "object",
+            "required": [
+              "new_provider_id"
+            ],
+            "properties": {
+              "new_provider_id": {
+                "type": "integer",
+                "format": "int32"
+              }
+            }
+          },
+          "error": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "success": {
+            "type": "boolean"
+          }
+        }
+      },
+      "CreateProviderApiKeyInput": {
+        "type": "object",
+        "required": [
+          "session_token",
+          "wallet_public_address",
+          "provider_id"
+        ],
+        "properties": {
+          "name": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "provider_id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "session_token": {
+            "type": "string"
+          },
+          "wallet_public_address": {
+            "type": "string"
+          }
+        }
+      },
+      "CreateTxBundleOutput": {
+        "type": "object",
+        "required": [
+          "tx_bundle_id"
+        ],
+        "properties": {
+          "tx_bundle_id": {
+            "type": "integer",
+            "format": "int32"
+          }
+        }
+      },
+      "ProviderDataOutput": {
+        "type": "object",
+        "required": [
+          "new_provider_id"
+        ],
+        "properties": {
+          "new_provider_id": {
+            "type": "integer",
+            "format": "int32"
+          }
+        }
+      }
+    }
+  }
+}
